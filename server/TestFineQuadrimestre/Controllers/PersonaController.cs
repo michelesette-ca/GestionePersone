@@ -57,7 +57,6 @@ namespace TestFineQuadrimestre.Controllers
             persona.DataNascita = personaAggiornata.DataNascita;
             persona.Email = personaAggiornata.Email;
 
-            ListaPersone.Add(personaAggiornata);
             return Ok("Persona aggiornata.");
         }
 
