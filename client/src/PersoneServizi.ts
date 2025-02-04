@@ -3,7 +3,7 @@ import { Persona } from "./Persona";
 export class PersoneServizi {
 
     async CreaPersona(persona: Persona) {
-        const response = await fetch("http://localhost:7271/api/persone", {
+        const response = await fetch("http://localhost:5070/api/persone", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -19,7 +19,7 @@ export class PersoneServizi {
     }
 
     async VisualizzaPersone() {
-        const response = await fetch("http://localhost:7271/api/persone");
+        const response = await fetch("http://localhost:5070/api/persone");
         
         if (!response.ok) {
             throw new Error(`Errore nel recupero dei dati: ${response.statusText}`);

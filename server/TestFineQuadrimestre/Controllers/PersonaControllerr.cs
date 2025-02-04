@@ -1,5 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TestFineQuadrimestre.Dto;
+using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
+using TestFineQuadrimestre.Dto;
+
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -10,7 +14,25 @@ namespace TestFineQuadrimestre.Controllers
     [ApiController]
     public class PersonaController : ControllerBase
     {
-        List<Persona> ListaPersone = new List<Persona>();
+
+        private readonly string filePath = "persone.json";
+        private List<Persona> ListaPersone = new List<Persona>();
+
+        public PersonaController()
+        {
+            if (System.IO.File.Exists(filePath))
+            {
+                var json = System.IO.File.ReadAllText(filePath);
+                ListaPersone = JsonSerializer.Deserialize<List<Persona>>(json) ?? new List<Persona>();
+            }
+        }
+
+        private void SalvaPersoneSuFile()
+        {
+            var json = JsonSerializer.Serialize(ListaPersone, new JsonSerializerOptions { WriteIndented = true });
+            System.IO.File.WriteAllText(filePath, json);
+        }
+
 
         // GET: api/<PersonaController>
         [HttpGet]
@@ -34,10 +56,11 @@ namespace TestFineQuadrimestre.Controllers
 
         // POST api/<PersonaController>
         [HttpPost]
-        public bool CreaPersona(Persona persona)
+        public IActionResult CreaPersona([FromBody] Persona persona)
         {
             ListaPersone.Add(persona);
-            return true;
+            SalvaPersoneSuFile();
+            return Ok("Persona creata con successo.");
         }
 
         // PUT api/<PersonaController>/5
@@ -45,35 +68,28 @@ namespace TestFineQuadrimestre.Controllers
         public IActionResult AggiornaPersona(Guid id, [FromBody] Persona personaAggiornata)
         {
             var persona = ListaPersone.FirstOrDefault(p => p.Id == id);
+            if (persona == null) return NotFound("Persona non trovata.");
 
-            if (persona == null)
-            {
-                return NotFound("Persona non trovata.");
-            }
-
-            // Aggiornamento dei dati
             persona.Nome = personaAggiornata.Nome;
             persona.Cognome = personaAggiornata.Cognome;
             persona.DataNascita = personaAggiornata.DataNascita;
             persona.Email = personaAggiornata.Email;
 
+            SalvaPersoneSuFile();
             return Ok("Persona aggiornata.");
         }
 
 
         // DELETE api/<PersonaController>/5
         [HttpDelete("{id}")]
-        public IActionResult EliminaPersona(Guid id, [FromBody] Persona personaEliminare)
+        public IActionResult EliminaPersona(Guid id)
         {
-            var persona = ListaPersone.FirstOrDefault(p =>p.Id == id);
-
-            if (persona == null)
-            {
-                return NotFound("Persona non trovata");
-            }
+            var persona = ListaPersone.FirstOrDefault(p => p.Id == id);
+            if (persona == null) return NotFound("Persona non trovata.");
 
             ListaPersone.Remove(persona);
-            return Ok("Persona rimossa con successo");
+            SalvaPersoneSuFile();
+            return Ok("Persona rimossa con successo.");
         }
     }
 }

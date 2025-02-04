@@ -1,4 +1,5 @@
 import { Dominio, Persona } from "./Persona";
+import { PersoneServizi } from "./PersoneServizi";
 
 export class Studente extends Persona {
     dominio = Dominio.Studente;

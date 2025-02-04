@@ -6,10 +6,10 @@ export enum Dominio {
 export abstract class Persona {
     abstract dominio: Dominio
 
-    constructor(public id: number, public nome: string, public cognome: string, public dataNascita: Date) { }
+    constructor(public id: string, public nome: string, public cognome: string, public dataNascita: Date) { }
 
     get email() {
-        return (`${this.nome.charAt(0).toLowerCase()}${this.cognome.toLowerCase()}@${Dominio}.com`);
+        return (`${this.nome.charAt(0).toLowerCase()}${this.cognome.toLowerCase()}@${this.dominio}.com`);
     }
     CalcolaEta(): number {
         let oggi = new Date();

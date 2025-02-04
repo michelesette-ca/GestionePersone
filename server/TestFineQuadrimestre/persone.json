@@ -1,0 +1,34 @@
+[
+  {
+    "Id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "Nome": "Michele",
+    "Cognome": "Sette",
+    "DataNascita": "2025-02-04T10:54:59.848Z",
+    "Dominio": 0,
+    "Email": "string"
+  },
+  {
+    "Id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "Nome": "Davide",
+    "Cognome": "Colucci",
+    "DataNascita": "2003-07-17T12:00:59.848Z",
+    "Dominio": 1,
+    "Email": ""
+  },
+  {
+    "Id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "Nome": "Domenico",
+    "Cognome": "Pace",
+    "DataNascita": "1999-11-20T11:01:59.631Z",
+    "Dominio": 1,
+    "Email": "string"
+  },
+  {
+    "Id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "Nome": "Leo",
+    "Cognome": "Galluzzi",
+    "DataNascita": "2025-02-04T11:45:43.293Z",
+    "Dominio": 1,
+    "Email": "string"
+  }
+]
